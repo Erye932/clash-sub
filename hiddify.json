@@ -7,50 +7,15 @@
       {
         "tag": "proxy-dns",
         "address": "https://1.1.1.1/dns-query",
-        "address_resolver": "direct-dns",
         "detour": "直播主用"
       },
       {
         "tag": "proxy-dns2",
         "address": "https://8.8.8.8/dns-query",
-        "address_resolver": "direct-dns",
         "detour": "直播主用"
-      },
-      {
-        "tag": "direct-dns",
-        "address": "223.5.5.5",
-        "detour": "direct"
       }
     ],
-    "rules": [
-      {
-        "domain": [
-          "aws-link23.liangxin1.xyz",
-          "aws-link5.liangxin1.xyz",
-          "aws-link8.liangxin1.xyz",
-          "cfyes.lxy1015.top"
-        ],
-        "server": "direct-dns"
-      },
-      {
-        "domain_keyword": [
-          "tiktok"
-        ],
-        "server": "proxy-dns"
-      },
-      {
-        "domain_keyword": [
-          "tiktokcdn"
-        ],
-        "server": "proxy-dns"
-      },
-      {
-        "domain_keyword": [
-          "tiktokv"
-        ],
-        "server": "proxy-dns"
-      }
-    ],
+    "rules": [],
     "final": "proxy-dns",
     "strategy": "ipv4_only",
     "independent_cache": true
@@ -167,10 +132,6 @@
         "insecure": true
       },
       "detour": "SG02"
-    },
-    {
-      "tag": "direct",
-      "type": "direct"
     },
     {
       "tag": "dns-out",
