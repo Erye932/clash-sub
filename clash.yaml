@@ -1,0 +1,98 @@
+mixed-port: 7897
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+tcp-concurrent: true
+unified-delay: true
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+proxies:
+- type: vless
+  server: aws-link5.liangxin1.xyz
+  port: 35332
+  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  servername: www.lamer.com.hk
+  tls: true
+  reality-opts:
+    public-key: a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg
+    short-id: 9bf38508
+  flow: xtls-rprx-vision
+  client-fingerprint: ios
+  network: tcp
+  name: 🇭🇰香港高速05|BGP|CMCU
+- type: vless
+  server: aws-link8.liangxin1.xyz
+  port: 39645
+  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  servername: iosapps.itunes.apple.com
+  tls: true
+  reality-opts:
+    public-key: x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ
+    short-id: 2b3b0b93
+  flow: xtls-rprx-vision
+  client-fingerprint: ios
+  network: tcp
+  name: 🇸🇬新加坡高速02|BGP|CTCUCM
+- type: vless
+  server: aws-link23.liangxin1.xyz
+  port: 443
+  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  servername: download-porter.hoyoverse.com
+  tls: true
+  reality-opts:
+    public-key: dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c
+    short-id: ba826a54
+  flow: xtls-rprx-vision
+  client-fingerprint: safari
+  network: tcp
+  name: 🇯🇵日本高速05|BGP|CUCM
+- name: 美国5人共享-OVH迁移-high-66-SOCKS
+  type: socks5
+  server: 15.204.89.179
+  port: 1141
+  username: OVH2244
+  password: Z3qjDMXrtJGLG47utI
+  dialer-proxy: 入口选择
+- name: 美国5人共享-OVH迁移-high-66-HY2
+  type: hysteria2
+  server: 15.204.89.179
+  port: 8504
+  password: Z3qjDMXrtJGLG47utI
+  sni: www.cloudflare.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  dialer-proxy: 入口选择
+proxy-groups:
+- name: 直播主用
+  type: url-test
+  url: https://www.gstatic.com/generate_204
+  interval: 60
+  tolerance: 200
+  lazy: false
+  proxies:
+  - 美国5人共享-OVH迁移-high-66-HY2
+  - 美国5人共享-OVH迁移-high-66-SOCKS
+- name: 出口选择
+  type: select
+  proxies:
+  - 直播主用
+  - 美国5人共享-OVH迁移-high-66-HY2
+  - 美国5人共享-OVH迁移-high-66-SOCKS
+- name: 入口选择
+  type: select
+  proxies:
+  - 🇯🇵日本高速05|BGP|CUCM
+  - 🇭🇰香港高速05|BGP|CMCU
+  - 🇸🇬新加坡高速02|BGP|CTCUCM
+rules:
+- GEOIP,CN,DIRECT
+- MATCH,出口选择
