@@ -7,15 +7,32 @@
       {
         "tag": "proxy-dns",
         "address": "https://1.1.1.1/dns-query",
+        "address_resolver": "direct-dns",
         "detour": "直播主用"
       },
       {
         "tag": "proxy-dns2",
         "address": "https://8.8.8.8/dns-query",
+        "address_resolver": "direct-dns",
         "detour": "直播主用"
+      },
+      {
+        "tag": "direct-dns",
+        "address": "tls://8.8.8.8",
+        "detour": "direct"
       }
     ],
-    "rules": [],
+    "rules": [
+      {
+        "domain": [
+          "aws-link23.liangxin1.xyz",
+          "aws-link5.liangxin1.xyz",
+          "aws-link8.liangxin1.xyz",
+          "cfyes.lxy1015.top"
+        ],
+        "server": "direct-dns"
+      }
+    ],
     "final": "proxy-dns",
     "strategy": "ipv4_only",
     "independent_cache": true
