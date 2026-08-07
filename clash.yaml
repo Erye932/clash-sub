@@ -11,15 +11,37 @@ dns:
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - localhost.ptlogin2.qq.com
+  - '+.stun.*.*'
+  - '+.stun.*.*.*'
+  - '+.turn.*.*'
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  proxy-server-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
   nameserver:
   - https://1.1.1.1/dns-query
-  proxy-server-nameserver:
-  - 223.5.5.5
+  - https://dns.google/dns-query
   fallback:
   - https://1.1.1.1/dns-query
+  - https://dns.google/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/8
+  nameserver-policy:
+    'geosite,CN': https://dns.alidns.com/dns-query
+    '+.tiktok.com,+.tiktokcdn.com,+.tiktokv.com,+.tiktokd.org': https://1.1.1.1/dns-query
+    '+.twitch.tv,+.ttvnw.net,+.jtvnw.net,+.twitchcdn.net': https://1.1.1.1/dns-query
+    '+.youtube.com,+.googlevideo.com,+.ytimg.com': https://dns.google/dns-query
+    '+.instagram.com,+.facebook.com': https://1.1.1.1/dns-query
 proxies:
 - type: vless
   server: aws-link5.liangxin1.xyz
@@ -100,5 +122,21 @@ proxy-groups:
   - 🇭🇰香港高速05|BGP|CMCU
   - 🇸🇬新加坡高速02|BGP|CTCUCM
 rules:
-- GEOIP,CN,DIRECT
+# ===== BT/P2P 端口屏蔽（保护节点，防止被机场限速/封号）=====
+# BitTorrent 常用端口
+- DST-PORT,6881-6889,REJECT
+- DST-PORT,6969,REJECT
+- DST-PORT,1337,REJECT
+- DST-PORT,2710,REJECT
+# 迅雷/常见 P2P 应用端口
+- DST-PORT,19303,REJECT
+- DST-PORT,19304,REJECT
+- DST-PORT,19305,REJECT
+- DST-PORT,19306,REJECT
+- DST-PORT,19307,REJECT
+- DST-PORT,19308,REJECT
+- DST-PORT,19309,REJECT
+# ===== 地域分流 =====
+- GEOSITE,CN,DIRECT
+- GEOIP,CN,DIRECT,no-resolve
 - MATCH,出口选择
