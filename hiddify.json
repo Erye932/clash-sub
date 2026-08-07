@@ -194,10 +194,6 @@
   "route": {
     "rules": [
       {
-        "geoip": "cn",
-        "outbound": "direct"
-      },
-      {
         "protocol": "dns",
         "outbound": "dns-out"
       }
