@@ -171,10 +171,21 @@
         "EXIT_HY2_SG"
       ],
       "url": "https://www.gstatic.com/generate_204",
-      "interval": "3m",
-      "tolerance": 150,
-      "idle_timeout": "5m",
+      "interval": "10m",
+      "tolerance": 300,
+      "idle_timeout": "10m",
       "interrupt_exist_connections": false
+    },
+    {
+      "tag": "手动选择",
+      "type": "selector",
+      "outbounds": [
+        "直播主用",
+        "EXIT_HY2_JP",
+        "EXIT_HY2_HK",
+        "EXIT_HY2_SG"
+      ],
+      "default": "直播主用"
     }
   ],
   "route": {
@@ -184,7 +195,7 @@
         "outbound": "dns-out"
       }
     ],
-    "final": "直播主用",
+    "final": "手动选择",
     "auto_detect_interface": true
   }
 }
