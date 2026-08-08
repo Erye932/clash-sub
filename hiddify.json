@@ -53,7 +53,7 @@
       "type": "vless",
       "server": "aws-link23.liangxin1.xyz",
       "server_port": 443,
-      "uuid": "f3873ad3-fc42-4d49-a519-8ab68de1993d",
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
@@ -74,7 +74,7 @@
       "type": "vless",
       "server": "aws-link5.liangxin1.xyz",
       "server_port": 35332,
-      "uuid": "f3873ad3-fc42-4d49-a519-8ab68de1993d",
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
@@ -95,7 +95,7 @@
       "type": "vless",
       "server": "aws-link8.liangxin1.xyz",
       "server_port": 39645,
-      "uuid": "f3873ad3-fc42-4d49-a519-8ab68de1993d",
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
@@ -115,12 +115,15 @@
       "tag": "EXIT_HY2_JP",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8504,
-      "password": "Z3qjDMXrtJGLG47utI",
+      "server_port": 8503,
+      "password": "AneIC882WhZQKi4uUk",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
-        "insecure": true
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
       },
       "detour": "JP05"
     },
@@ -128,12 +131,15 @@
       "tag": "EXIT_HY2_HK",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8504,
-      "password": "Z3qjDMXrtJGLG47utI",
+      "server_port": 8503,
+      "password": "AneIC882WhZQKi4uUk",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
-        "insecure": true
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
       },
       "detour": "HK05"
     },
@@ -141,12 +147,15 @@
       "tag": "EXIT_HY2_SG",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8504,
-      "password": "Z3qjDMXrtJGLG47utI",
+      "server_port": 8503,
+      "password": "AneIC882WhZQKi4uUk",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
-        "insecure": true
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
       },
       "detour": "SG02"
     },
@@ -176,6 +185,7 @@
         "outbound": "dns-out"
       }
     ],
-    "final": "直播主用"
+    "final": "直播主用",
+    "auto_detect_interface": true
   }
 }
