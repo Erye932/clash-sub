@@ -5,6 +5,7 @@ log-level: info
 ipv6: false
 tcp-concurrent: true
 unified-delay: true
+keep-alive-interval: 30
 external-controller: 127.0.0.1:9090
 dns:
   enable: true
@@ -15,9 +16,9 @@ dns:
   - '*.lan'
   - '*.local'
   - localhost.ptlogin2.qq.com
-  - '+.stun.*.*'
-  - '+.stun.*.*.*'
-  - '+.turn.*.*'
+  - +.stun.*.*
+  - +.stun.*.*.*
+  - +.turn.*.*
   default-nameserver:
   - 223.5.5.5
   - 119.29.29.29
@@ -37,59 +38,52 @@ dns:
     - 240.0.0.0/4
     - 0.0.0.0/8
   nameserver-policy:
-    'geosite,CN': https://dns.alidns.com/dns-query
-    '+.tiktok.com,+.tiktokcdn.com,+.tiktokv.com,+.tiktokd.org': https://1.1.1.1/dns-query
-    '+.twitch.tv,+.ttvnw.net,+.jtvnw.net,+.twitchcdn.net': https://1.1.1.1/dns-query
-    '+.youtube.com,+.googlevideo.com,+.ytimg.com': https://dns.google/dns-query
-    '+.instagram.com,+.facebook.com': https://1.1.1.1/dns-query
+    geosite,CN: https://dns.alidns.com/dns-query
+    +.tiktok.com,+.tiktokcdn.com,+.tiktokv.com,+.tiktokd.org: https://1.1.1.1/dns-query
+    +.twitch.tv,+.ttvnw.net,+.jtvnw.net,+.twitchcdn.net: https://1.1.1.1/dns-query
+    +.youtube.com,+.googlevideo.com,+.ytimg.com: https://dns.google/dns-query
+    +.instagram.com,+.facebook.com: https://1.1.1.1/dns-query
 proxies:
-- type: vless
+- name: 🇭🇰香港高速05|BGP|CMCU
+  type: vless
   server: aws-link5.liangxin1.xyz
   port: 35332
-  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
   servername: www.lamer.com.hk
   tls: true
+  network: tcp
+  client-fingerprint: ios
   reality-opts:
     public-key: a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg
     short-id: 9bf38508
-  flow: xtls-rprx-vision
-  client-fingerprint: ios
-  network: tcp
-  name: 🇭🇰香港高速05|BGP|CMCU
-- type: vless
+- name: 🇸🇬新加坡高速02|BGP|CTCUCM
+  type: vless
   server: aws-link8.liangxin1.xyz
   port: 39645
-  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
   servername: iosapps.itunes.apple.com
   tls: true
+  network: tcp
+  client-fingerprint: ios
   reality-opts:
     public-key: x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ
     short-id: 2b3b0b93
-  flow: xtls-rprx-vision
-  client-fingerprint: ios
-  network: tcp
-  name: 🇸🇬新加坡高速02|BGP|CTCUCM
-- type: vless
+- name: 🇯🇵日本高速05|BGP|CUCM
+  type: vless
   server: aws-link23.liangxin1.xyz
   port: 443
-  uuid: f3873ad3-fc42-4d49-a519-8ab68de1993d
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
   servername: download-porter.hoyoverse.com
   tls: true
+  network: tcp
+  client-fingerprint: safari
   reality-opts:
     public-key: dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c
     short-id: ba826a54
-  flow: xtls-rprx-vision
-  client-fingerprint: safari
-  network: tcp
-  name: 🇯🇵日本高速05|BGP|CUCM
-- name: 美国5人共享-OVH迁移-high-66-SOCKS
-  type: socks5
-  server: 15.204.89.179
-  port: 1141
-  username: OVH2244
-  password: Z3qjDMXrtJGLG47utI
-  dialer-proxy: 入口选择
-- name: 美国5人共享-OVH迁移-high-66-HY2
+- name: 美国固定出口-HY2
   type: hysteria2
   server: 15.204.89.179
   port: 8504
@@ -99,22 +93,29 @@ proxies:
   alpn:
   - h3
   dialer-proxy: 入口选择
+- name: 美国固定出口-SOCKS
+  type: socks5
+  server: 15.204.89.179
+  port: 1141
+  username: OVH2244
+  password: Z3qjDMXrtJGLG47utI
+  dialer-proxy: 入口选择
 proxy-groups:
 - name: 直播主用
   type: url-test
   url: https://www.gstatic.com/generate_204
-  interval: 60
-  tolerance: 200
+  interval: 300
+  tolerance: 300
   lazy: false
   proxies:
-  - 美国5人共享-OVH迁移-high-66-HY2
-  - 美国5人共享-OVH迁移-high-66-SOCKS
+  - 美国固定出口-HY2
+  - 美国固定出口-SOCKS
 - name: 出口选择
   type: select
   proxies:
   - 直播主用
-  - 美国5人共享-OVH迁移-high-66-HY2
-  - 美国5人共享-OVH迁移-high-66-SOCKS
+  - 美国固定出口-HY2
+  - 美国固定出口-SOCKS
 - name: 入口选择
   type: select
   proxies:
@@ -122,13 +123,10 @@ proxy-groups:
   - 🇭🇰香港高速05|BGP|CMCU
   - 🇸🇬新加坡高速02|BGP|CTCUCM
 rules:
-# ===== BT/P2P 端口屏蔽（保护节点，防止被机场限速/封号）=====
-# BitTorrent 常用端口
 - DST-PORT,6881-6889,REJECT
 - DST-PORT,6969,REJECT
 - DST-PORT,1337,REJECT
 - DST-PORT,2710,REJECT
-# 迅雷/常见 P2P 应用端口
 - DST-PORT,19303,REJECT
 - DST-PORT,19304,REJECT
 - DST-PORT,19305,REJECT
@@ -136,7 +134,6 @@ rules:
 - DST-PORT,19307,REJECT
 - DST-PORT,19308,REJECT
 - DST-PORT,19309,REJECT
-# ===== 地域分流 =====
 - GEOSITE,CN,DIRECT
 - GEOIP,CN,DIRECT,no-resolve
 - MATCH,出口选择
