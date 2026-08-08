@@ -25,10 +25,9 @@
     "rules": [
       {
         "domain": [
-          "aws-link23.liangxin1.xyz",
           "aws-link5.liangxin1.xyz",
-          "aws-link8.liangxin1.xyz",
-          "cfyes.lxy1015.top"
+          "aws-link23.liangxin1.xyz",
+          "aws-link8.liangxin1.xyz"
         ],
         "server": "direct-dns"
       }
@@ -48,27 +47,6 @@
     }
   ],
   "outbounds": [
-    {
-      "tag": "JP05",
-      "type": "vless",
-      "server": "aws-link23.liangxin1.xyz",
-      "server_port": 443,
-      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
-      "flow": "xtls-rprx-vision",
-      "tls": {
-        "enabled": true,
-        "server_name": "download-porter.hoyoverse.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "safari"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c",
-          "short_id": "ba826a54"
-        }
-      }
-    },
     {
       "tag": "HK05",
       "type": "vless",
@@ -112,11 +90,32 @@
       }
     },
     {
+      "tag": "JP05",
+      "type": "vless",
+      "server": "aws-link23.liangxin1.xyz",
+      "server_port": 443,
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "download-porter.hoyoverse.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c",
+          "short_id": "ba826a54"
+        }
+      }
+    },
+    {
       "tag": "EXIT_HY2_JP",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8503,
-      "password": "AneIC882WhZQKi4uUk",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
@@ -131,8 +130,8 @@
       "tag": "EXIT_HY2_HK",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8503,
-      "password": "AneIC882WhZQKi4uUk",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
@@ -147,8 +146,8 @@
       "tag": "EXIT_HY2_SG",
       "type": "hysteria2",
       "server": "15.204.89.179",
-      "server_port": 8503,
-      "password": "AneIC882WhZQKi4uUk",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
       "tls": {
         "enabled": true,
         "server_name": "www.cloudflare.com",
