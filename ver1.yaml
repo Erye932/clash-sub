@@ -1,0 +1,139 @@
+mixed-port: 7897
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+tcp-concurrent: true
+unified-delay: true
+keep-alive-interval: 30
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - localhost.ptlogin2.qq.com
+  - +.stun.*.*
+  - +.stun.*.*.*
+  - +.turn.*.*
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  proxy-server-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
+  nameserver:
+  - https://1.1.1.1/dns-query
+  - https://dns.google/dns-query
+  fallback:
+  - https://1.1.1.1/dns-query
+  - https://dns.google/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/8
+  nameserver-policy:
+    geosite,CN: https://dns.alidns.com/dns-query
+    +.tiktok.com,+.tiktokcdn.com,+.tiktokv.com,+.tiktokd.org: https://1.1.1.1/dns-query
+    +.twitch.tv,+.ttvnw.net,+.jtvnw.net,+.twitchcdn.net: https://1.1.1.1/dns-query
+    +.youtube.com,+.googlevideo.com,+.ytimg.com: https://dns.google/dns-query
+    +.instagram.com,+.facebook.com: https://1.1.1.1/dns-query
+proxies:
+- name: 🇭🇰香港高速05|BGP|CMCU
+  type: vless
+  server: aws-link5.liangxin1.xyz
+  port: 35332
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
+  servername: www.lamer.com.hk
+  tls: true
+  network: tcp
+  client-fingerprint: ios
+  reality-opts:
+    public-key: a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg
+    short-id: 9bf38508
+- name: 🇸🇬新加坡高速02|BGP|CTCUCM
+  type: vless
+  server: aws-link8.liangxin1.xyz
+  port: 39645
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
+  servername: iosapps.itunes.apple.com
+  tls: true
+  network: tcp
+  client-fingerprint: ios
+  reality-opts:
+    public-key: x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ
+    short-id: 2b3b0b93
+- name: 🇯🇵日本高速05|BGP|CUCM
+  type: vless
+  server: aws-link23.liangxin1.xyz
+  port: 443
+  uuid: 7db568e3-ba18-4c4f-b49a-8a9f75b590ac
+  flow: xtls-rprx-vision
+  servername: download-porter.hoyoverse.com
+  tls: true
+  network: tcp
+  client-fingerprint: safari
+  reality-opts:
+    public-key: dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c
+    short-id: ba826a54
+- name: 美国固定出口-HY2
+  type: hysteria2
+  server: 15.204.89.179
+  port: 8504
+  password: Z3qjDMXrtJGLG47utI
+  sni: www.cloudflare.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  dialer-proxy: 入口选择
+- name: 美国固定出口-SOCKS
+  type: socks5
+  server: 15.204.89.179
+  port: 1226
+  username: OVH3991
+  password: beuLYYJli5Za7XJx7M
+  dialer-proxy: 入口选择
+proxy-groups:
+- name: 直播主用
+  type: url-test
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 300
+  lazy: false
+  proxies:
+  - 美国固定出口-HY2
+  - 美国固定出口-SOCKS
+- name: 出口选择
+  type: select
+  proxies:
+  - 直播主用
+  - 美国固定出口-HY2
+  - 美国固定出口-SOCKS
+- name: 入口选择
+  type: select
+  proxies:
+  - 🇯🇵日本高速05|BGP|CUCM
+  - 🇭🇰香港高速05|BGP|CMCU
+  - 🇸🇬新加坡高速02|BGP|CTCUCM
+rules:
+- DST-PORT,6881-6889,REJECT
+- DST-PORT,6969,REJECT
+- DST-PORT,1337,REJECT
+- DST-PORT,2710,REJECT
+- DST-PORT,19303,REJECT
+- DST-PORT,19304,REJECT
+- DST-PORT,19305,REJECT
+- DST-PORT,19306,REJECT
+- DST-PORT,19307,REJECT
+- DST-PORT,19308,REJECT
+- DST-PORT,19309,REJECT
+- GEOSITE,CN,DIRECT
+- GEOIP,CN,DIRECT,no-resolve
+- MATCH,出口选择
