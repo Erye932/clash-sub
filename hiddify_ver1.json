@@ -1,0 +1,237 @@
+{
+  "log": {
+    "level": "info"
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "proxy-dns",
+        "address": "https://1.1.1.1/dns-query",
+        "address_resolver": "direct-dns",
+        "detour": "直播主用"
+      },
+      {
+        "tag": "proxy-dns2",
+        "address": "https://8.8.8.8/dns-query",
+        "address_resolver": "direct-dns",
+        "detour": "直播主用"
+      },
+      {
+        "tag": "direct-dns",
+        "address": "tls://8.8.8.8",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "domain": [
+          "aws-link5.liangxin1.xyz",
+          "aws-link23.liangxin1.xyz",
+          "aws-link8.liangxin1.xyz"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "final": "proxy-dns",
+    "strategy": "ipv4_only",
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "tag": "mixed-in",
+      "type": "mixed",
+      "listen": "127.0.0.1",
+      "listen_port": 17920,
+      "sniff": true,
+      "sniff_override_destination": false
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "HK05",
+      "type": "vless",
+      "server": "aws-link5.liangxin1.xyz",
+      "server_port": 35332,
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.lamer.com.hk",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg",
+          "short_id": "9bf38508"
+        }
+      }
+    },
+    {
+      "tag": "SG02",
+      "type": "vless",
+      "server": "aws-link8.liangxin1.xyz",
+      "server_port": 39645,
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "iosapps.itunes.apple.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ",
+          "short_id": "2b3b0b93"
+        }
+      }
+    },
+    {
+      "tag": "JP05",
+      "type": "vless",
+      "server": "aws-link23.liangxin1.xyz",
+      "server_port": 443,
+      "uuid": "7db568e3-ba18-4c4f-b49a-8a9f75b590ac",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "download-porter.hoyoverse.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c",
+          "short_id": "ba826a54"
+        }
+      }
+    },
+    {
+      "tag": "EXIT_HY2_JP",
+      "type": "hysteria2",
+      "server": "15.204.89.179",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cloudflare.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      },
+      "detour": "JP05"
+    },
+    {
+      "tag": "EXIT_HY2_HK",
+      "type": "hysteria2",
+      "server": "15.204.89.179",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cloudflare.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      },
+      "detour": "HK05"
+    },
+    {
+      "tag": "EXIT_HY2_SG",
+      "type": "hysteria2",
+      "server": "15.204.89.179",
+      "server_port": 8504,
+      "password": "Z3qjDMXrtJGLG47utI",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.cloudflare.com",
+        "insecure": true,
+        "alpn": [
+          "h3"
+        ]
+      },
+      "detour": "SG02"
+    },
+    {
+      "tag": "EXIT_SOCKS_JP",
+      "type": "socks",
+      "server": "15.204.89.179",
+      "server_port": 1226,
+      "version": "5",
+      "username": "OVH3991",
+      "password": "beuLYYJli5Za7XJx7M",
+      "detour": "JP05"
+    },
+    {
+      "tag": "EXIT_SOCKS_HK",
+      "type": "socks",
+      "server": "15.204.89.179",
+      "server_port": 1226,
+      "version": "5",
+      "username": "OVH3991",
+      "password": "beuLYYJli5Za7XJx7M",
+      "detour": "HK05"
+    },
+    {
+      "tag": "EXIT_SOCKS_SG",
+      "type": "socks",
+      "server": "15.204.89.179",
+      "server_port": 1226,
+      "version": "5",
+      "username": "OVH3991",
+      "password": "beuLYYJli5Za7XJx7M",
+      "detour": "SG02"
+    },
+    {
+      "tag": "dns-out",
+      "type": "dns"
+    },
+    {
+      "tag": "直播主用",
+      "type": "urltest",
+      "outbounds": [
+        "EXIT_HY2_JP",
+        "EXIT_HY2_HK",
+        "EXIT_HY2_SG",
+        "EXIT_SOCKS_JP",
+        "EXIT_SOCKS_HK",
+        "EXIT_SOCKS_SG"
+      ],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 300,
+      "idle_timeout": "10m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "手动选择",
+      "type": "selector",
+      "outbounds": [
+        "直播主用",
+        "EXIT_HY2_JP",
+        "EXIT_HY2_HK",
+        "EXIT_HY2_SG",
+        "EXIT_SOCKS_JP",
+        "EXIT_SOCKS_HK",
+        "EXIT_SOCKS_SG"
+      ],
+      "default": "直播主用"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      }
+    ],
+    "final": "手动选择",
+    "auto_detect_interface": true
+  }
+}
