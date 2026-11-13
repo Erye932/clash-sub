@@ -1,0 +1,21 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+proxies:
+- name: VER-4
+  type: socks5
+  server: 15.204.89.179
+  port: 1229
+  username: OVH3885
+  password: HDQt4ME1bJuwANGlrT
+  udp: false
+proxy-groups:
+- name: 出口
+  type: select
+  proxies:
+  - VER-4
+  - DIRECT
+rules:
+- GEOIP,CN,DIRECT
+- MATCH,出口
