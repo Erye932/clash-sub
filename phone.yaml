@@ -1,0 +1,67 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - localhost.ptlogin2.qq.com
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  nameserver:
+  - https://1.1.1.1/dns-query#出口
+  - https://8.8.8.8/dns-query#出口
+  nameserver-policy:
+    +.chatgpt.com: https://1.1.1.1/dns-query#出口
+    +.openai.com: https://1.1.1.1/dns-query#出口
+    +.oaistatic.com: https://1.1.1.1/dns-query#出口
+    +.oaiusercontent.com: https://1.1.1.1/dns-query#出口
+    +.anthropic.com: https://1.1.1.1/dns-query#出口
+    +.claude.ai: https://1.1.1.1/dns-query#出口
+    geosite:cn,private:
+    - https://223.5.5.5/dns-query
+    - https://120.53.53.53/dns-query
+    geosite:geolocation-!cn:
+    - https://1.1.1.1/dns-query#出口
+    - https://8.8.8.8/dns-query#出口
+proxies:
+- name: VER-4 住宅出口
+  type: socks5
+  server: 15.204.89.179
+  port: 1229
+  username: OVH3885
+  password: HDQt4ME1bJuwANGlrT
+  udp: false
+  ip-version: ipv4
+proxy-groups:
+- name: 出口
+  type: select
+  proxies:
+  - VER-4 住宅出口
+  - DIRECT
+rules:
+- DOMAIN-SUFFIX,chatgpt.com,出口
+- DOMAIN-SUFFIX,openai.com,出口
+- DOMAIN-SUFFIX,oaistatic.com,出口
+- DOMAIN-SUFFIX,oaiusercontent.com,出口
+- DOMAIN-SUFFIX,anthropic.com,出口
+- DOMAIN-SUFFIX,claude.ai,出口
+- DOMAIN-SUFFIX,claude.com,出口
+- DOMAIN-SUFFIX,perplexity.ai,出口
+- DOMAIN-SUFFIX,grok.com,出口
+- DOMAIN-SUFFIX,x.ai,出口
+- DOMAIN-SUFFIX,google.com,出口
+- DOMAIN-SUFFIX,youtube.com,出口
+- DOMAIN-SUFFIX,github.com,出口
+- DOMAIN-SUFFIX,githubusercontent.com,出口
+- GEOIP,CN,DIRECT
+- IP-ASN,132203,DIRECT
+- IP-ASN,45090,DIRECT
+- MATCH,出口
